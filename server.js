@@ -1,7 +1,14 @@
+
+
 // Note: This example requires that you consent to location sharing when
 // prompted by your browser. If you see the error "The Geolocation service
 // failed.", it means you probably did not give permission for the browser to
 // locate you.
+
+// substute the lat long in the code below to change locations
+// https://maps.googleapis.com/maps/api/elevation/json?locations=47.61716516970849, -122.35683198029153&key=AIzaSyDGhNQctIrADl5WyqtF1Y884c25BATX-uk
+
+
 var map, infoWindow;
 
 function initMap() {
@@ -25,8 +32,7 @@ function initMap() {
 
         var request = {
           location: pos,
-          radius: '1000',
-          // types: ['qfc']
+          radius: '500',
           name: ['subway']
         };
 
@@ -44,6 +50,7 @@ function initMap() {
           map: map
         });
         map.setCenter(pos);
+
       },
       function() {
         handleLocationError(true, infoWindow, map.getCenter());
@@ -55,6 +62,7 @@ function initMap() {
   }
 }
 
+//
 function callback(results, status) {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
@@ -62,6 +70,25 @@ function callback(results, status) {
     }
   }
   subway = results
+
+  var origin1 = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+  // var origin1 = new google.maps.LatLng(55.930385, -3.118425);
+  // var origin2 = 'Greenwich, England';
+  // var destinationA = 'Stockholm, Sweden';
+  var destinationB = new google.maps.LatLng(subway[0].geometry.viewport.b["f"], subway[0].geometry.viewport.f["b"]);
+
+  var service = new google.maps.DistanceMatrixService();
+  service.getDistanceMatrix(
+    {
+      origins: [origin1],
+      destinations: [destinationB],
+      travelMode: 'WALKING',
+    }, callback);
+
+  function callback(response, status) {
+    // See Parsing the Results for
+    // the basics of a callback function.
+  }
 
 }
 
