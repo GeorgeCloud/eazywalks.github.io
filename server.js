@@ -30,7 +30,6 @@ function initMap() {
           name: ['subway']
         };
 
-
         service = new google.maps.places.PlacesService(map);
         service.nearbySearch(request, callback);
 
@@ -61,7 +60,10 @@ function callback(results, status) {
       createMarker(results[i])
     }
   }
-  subway = results
+  let search = results;
+  search.forEach(location => {
+    console.log(`longitude: ${location['geometry']['location'].lng()} Latitude: ${location['geometry']['location'].lat()}`)
+  });
 
 }
 
