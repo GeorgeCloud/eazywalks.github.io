@@ -16,7 +16,6 @@ function initMap() {
 
   // Try HTML5 geolocation.
   if (navigator.geolocation) {
-
     navigator.geolocation.getCurrentPosition(
       function(position) {
         var pos = {
@@ -27,21 +26,24 @@ function initMap() {
         var request = {
           location: pos,
           radius: '1000',
+          // types: ['qfc']
           name: ['subway']
         };
 
+
+        service = new google.maps.places.PlacesService(map);
+        service.nearbySearch(request, callback);
+
+        // infoWindow.setPosition(pos);
+        // infoWindow.setContent('Location found.');
+        // infoWindow.open(map);
         var marker = new google.maps.Marker({
           position: pos,
           icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png', // image,
           animation: google.maps.Animation.DROP,
           map: map
         });
-
         map.setCenter(pos);
-
-
-        servicePlaces = new google.maps.places.PlacesService(map);
-        servicePlaces.nearbySearch(request,callback);
       },
       function() {
         handleLocationError(true, infoWindow, map.getCenter());
@@ -56,17 +58,29 @@ function initMap() {
 function callback(results, status) {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
-//      createMarker(results[i])
+      createMarker(results[i])
     }
   }
   subway = results
+
 }
 
 function createMarker(place) {
-
-  var markerResults = new google.maps.Marker({
+  var marker = new google.maps.Marker({
     position: place.geometry.location,
-    map: map,
-    title: place.geometry.location.toString()
+    map: map
   });
+
+  google.maps.event.addListener(marker, 'click', function() {
+    infoWindow.setContent(place.name);
+    infoWindow.open(map, this);
+  });
+}
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(browserHasGeolocation ?
+    'Error: The Geolocation service failed.' :
+    'Error: Your browser doesn\'t support geolocation.');
+  infoWindow.open(map);
 }
