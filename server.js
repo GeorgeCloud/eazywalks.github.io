@@ -36,7 +36,9 @@ function initMap() {
           animation: google.maps.Animation.DROP,
           map: map
         });
+
         map.setCenter(pos);
+
 
         servicePlaces = new google.maps.places.PlacesService(map);
         servicePlaces.nearbySearch(request,callback);
@@ -62,11 +64,6 @@ function callback(results, status) {
 
 function createMarker(place) {
 
-  // serviceDistance.getDistanceMatrix(
-  //   {
-  //     origins: marker.position,
-  //     destinations: place.geometry.location,
-  //   });
   var markerResults = new google.maps.Marker({
     position: place.geometry.location,
     map: map,
