@@ -3,6 +3,9 @@
 let map, infoWindow;
 let pos = {};
 let des = [];
+let posElev = {};
+let desElev = [];
+let elevFinal =[];
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -26,7 +29,7 @@ function initMap() {
         let request = {
           location: pos,
           // rankBy: google.maps.places.RankBy.DISTANCE,
-          radius: '500',
+          radius: '300',
           name: ['subway'],//search by name
           // type: ['coffee'],// search by type
           // keyword: ['coffee']// search by keyword
@@ -76,7 +79,11 @@ function processResults(results, status) {
   }
   var elevator = new google.maps.ElevationService;
   distance();
-  displayLocationElevation(elevator);
+  getElevationPos(elevator);
+  // getElevationDes(elevator);
+  // getElevationCompare();
+  console.log('this is pos lat/log:', pos);
+  console.log('this is des lat/log:', des);
 }
 
 
@@ -87,7 +94,7 @@ function distance() {
       {lat: pos.lat, lon: pos.lng},
       {lat: des[i].lat, lon: des[i].lng}
     )
-    console.log('this is distance: ' + dist + ' meters')
+    // console.log('this is distance: ' + dist + ' meters')
   }
 }
 
@@ -105,19 +112,38 @@ function createMarker(place) {
 }
 
 // calculate evelation
-
-function displayLocationElevation(elevator) {
+function getElevationPos(elevator) {
   // Initiate the location request
   elevator.getElevationForLocations({
     locations: [pos],
-  }, function(response, err){
+  }, function(response, err) {
     if (!err){console.log(response[0].elevation*3.28)}
-    console.log(Math.floor(response[0].elevation*3.28))
+    posElev = (Math.floor(response[0].elevation*3.28))
+    console.log('this is pos elevation:', posElev);
   })
+  getElevationDes(elevator);
 }
 
+function getElevationDes(elevator) {
+  // Initiate the location request
+  for (let i = 0; i < des.length; i++) {
+    elevator.getElevationForLocations({
+      locations: [des[i]],
+    }, function(response){
+      desElev.push(Math.floor(response[0].elevation*3.28))
+    })
+  }
+  console.log('this is des evelation:', desElev);
+  getElevationCompare();
+}
 
-
+// test function for elevation
+function getElevationCompare() {
+  for (let i = 0; i < desElev.length; i++) {
+    elevFinal.push(Math.abs(posElev - desElev[i]))
+  }
+  console.log('this is elev final:', elevFinal);
+}
 
 
 // this functions tell you if you are allowed the GPS to be accessed.
