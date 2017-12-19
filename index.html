@@ -2,25 +2,39 @@
 <html>
 
 <head>
-  <title>Geolocation</title>
-  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   <meta charset="utf-8">
 
-  <link rel="stylesheet" href="styles/reset.css">
-  <link rel="stylesheet" href="styles/base.css">
-  <link rel="stylesheet" href="styles/layout.css">
-  <link rel="stylesheet" href="styles/module.css">
-
+  <link rel="stylesheet" type="text/css" href=styles/reset.css>
+  <link rel="stylesheet" type="text/css" href=styles/base.css>
+  <title>Elevation Info</title>
 </head>
 
 <body>
-  <div id="map"></div>
+  <header>
+     <nav>
+           <input type="checkbox" id="css-toggle-menu" name="css-toggle-menu">
+           <ul class="main">
+                 <li><a href="">Home</a></li>
+                 <li><a href="">Services</a></li>
+                 <li><a href="">Contact</a></li>
+           </ul>
+           <label for="css-toggle-menu" id="css-toggle-menu"></label>
+     </nav>
+  </header>
+  <main>
+     <h1>Easy walking ...</h1>
+     <h2>Seattle is known for having many hills in short distances. We decided to build this app in order to help you have a more informed decision and avoid "climbing" in order to reach a desitnation.</h2>
+  </main>
 
+  <p>find recomendations</p>
 
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFvCBTC4gncWVqiOHfjbPWRQsmI9DXFP4&callback=initMap&libraries=places"></script>
-  <script type="text/javascript" src="server.js"></script>
+  <form>
+    <input type="text" name="search" placeholder="Get the info...">
+  </form>
+<!-- footer -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFvCBTC4gncWVqiOHfjbPWRQsmI9DXFP4&callback=initMap&libraries=places"></script>
+<script type="text/javascript" src="server.js"></script>
+<div class="footer">Heath, Hector, George and Sunitha <strong>For Final Project 301</strong>.</div>
 </body>
 
 </html>
