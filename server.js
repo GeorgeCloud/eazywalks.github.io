@@ -1,6 +1,6 @@
 'use strict';
-let map, infoWindow;
 
+let map, infoWindow;
 let pos = {};
 let des = [];
 
@@ -27,7 +27,9 @@ function initMap() {
           location: pos,
           // rankBy: google.maps.places.RankBy.DISTANCE,
           radius: '500',
-          name: ['subway']
+          name: ['subway'],//search by name
+          // type: ['coffee'],// search by type
+          // keyword: ['coffee']// search by keyword
         };
 
 
@@ -72,8 +74,9 @@ function processResults(results, status) {
     // console.log(results[0].geometry.location.lat());
     // console.log(results[0].geometry.location.lng());
   }
-
+  var elevator = new google.maps.ElevationService;
   distance();
+  displayLocationElevation(elevator);
 }
 
 
@@ -88,25 +91,34 @@ function distance() {
   }
 }
 
-// let high = latitude(
-//   {lat: 51.49611, lng: 7.38896}
-// );
-// console.log(high);
-
-
 // creates the markers
 function createMarker(place) {
   let marker = new google.maps.Marker({
     position: place.geometry.location,
     map: map
   });
-
-//  this code lets you click on the marker for more info
-  // google.maps.event.addListener(marker, 'click', function() {
-  //   infoWindow.setContent(place.name);
-  //   infoWindow.open(map, this);
-  // });
+// this code lets you click on the marker for more info
+  google.maps.event.addListener(marker, 'click', function() {
+    infoWindow.setContent(place.name);
+    infoWindow.open(map, this);
+  });
 }
+
+// calculate evelation
+
+function displayLocationElevation(elevator) {
+  // Initiate the location request
+  elevator.getElevationForLocations({
+    locations: [pos],
+  }, function(response, err){
+    if (!err){console.log(response[0].elevation*3.28)}
+    console.log(Math.floor(response[0].elevation*3.28))
+  })
+}
+
+
+
+
 
 // this functions tell you if you are allowed the GPS to be accessed.
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
