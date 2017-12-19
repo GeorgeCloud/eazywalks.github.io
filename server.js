@@ -1,16 +1,14 @@
-'use strict';
-
-// Note: This example requires that you consent to location sharing when
-// prompted by your browser. If you see the error "The Geolocation service
-// failed.", it means you probably did not give permission for the browser to
-// locate you.
 var map, infoWindow;
+
+let x = 47.618953;
+let y = 122.348801;
+let locations = [];
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {
-      lat: -34.397,
-      lng: 150.644
+      lat: 47.618953,
+      lng: 122.348801
     },
     zoom: 16
   });
@@ -31,7 +29,6 @@ function initMap() {
           // types: ['qfc']
           name: ['subway']
         };
-
 
         service = new google.maps.places.PlacesService(map);
         service.nearbySearch(request, callback);
@@ -63,8 +60,14 @@ function callback(results, status) {
       createMarker(results[i])
     }
   }
-  subway = results
+  let search = results;
+  // search.forEach(location => {
+  //   console.log(`longitude: ${location['geometry']['location'].lng()} Latitude: ${location['geometry']['location'].lat()}`)
+  // });
 
+  search.forEach(location => {
+    console.log(`Distance: ${Math.sqrt((x * y) + (Math.abs(location['geometry']['location'].lng()) * Math.abs(location['geometry']['location'].lat())))}`)
+  });
 }
 
 function createMarker(place) {

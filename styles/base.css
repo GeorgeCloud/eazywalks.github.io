@@ -1,57 +1,5 @@
-/* Optional: Makes the sample page fill the window. */
-
-/* html, body {
-height: 100%;
-margin: 0;
-padding: 0;
-background-color: black;
-} */
-
-/* Always set the map height explicitly to define the size of the div
-* element that contains the map. */
-
-/* #map {
-height: 60%;
-} */
-
-/***************** FONTS ********************/
-
-@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css");
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,300");
-html {
-  font-size: 62.5%;
-  font-family: 'Open Sans', sans-serif;
-}
-
-body {
-  font-size: 1.8rem;
-  min-height: 100vh;
-  background-color: #A1D8FF;
-}
-
-h1 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-h2 {
-  font-size: 1.6rem;
-}
-
-header {
-  position: relative;
-}
-
-main {
-  padding: 2rem;
-}
-
-/************** NAVIGATION ***************/
-
-nav ul {
-  display: flex;
-  flex-wrap: wrap;
-  max-width: 1080px;
+html, body {
+  height: 100%;
   margin: 0;
   background: #EFE2B4;
   padding-left: 0;
