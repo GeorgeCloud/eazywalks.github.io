@@ -29,7 +29,7 @@ function initMap() {
         let request = {
           location: pos,
           // rankBy: google.maps.places.RankBy.DISTANCE,
-          radius: '300',
+          radius: '500',
           name: ['subway'],//search by name
           // type: ['coffee'],// search by type
           // keyword: ['coffee']// search by keyword
@@ -72,16 +72,11 @@ function processResults(results, status) {
         lat: results[i].geometry.location.lat(),
         lng: results[i].geometry.location.lng()
       });
-
     }
-    // console.log(results[0].geometry.location.lat());
-    // console.log(results[0].geometry.location.lng());
   }
   var elevator = new google.maps.ElevationService;
   distance();
   getElevationPos(elevator);
-  // getElevationDes(elevator);
-  // getElevationCompare();
   console.log('this is pos lat/log:', pos);
   console.log('this is des lat/log:', des);
 }
@@ -94,7 +89,7 @@ function distance() {
       {lat: pos.lat, lon: pos.lng},
       {lat: des[i].lat, lon: des[i].lng}
     )
-    // console.log('this is distance: ' + dist + ' meters')
+    console.log('this is distance: ' + dist + ' meters')
   }
 }
 
@@ -112,7 +107,7 @@ function createMarker(place) {
 }
 
 // calculate evelation
-function getElevationPos(elevator) {
+let getElevationPos = function(elevator) {
   // Initiate the location request
   elevator.getElevationForLocations({
     locations: [pos],
@@ -120,8 +115,8 @@ function getElevationPos(elevator) {
     if (!err){console.log(response[0].elevation*3.28)}
     posElev = (Math.floor(response[0].elevation*3.28))
     console.log('this is pos elevation:', posElev);
+    getElevationDes(elevator);
   })
-  getElevationDes(elevator);
 }
 
 function getElevationDes(elevator) {
@@ -134,15 +129,17 @@ function getElevationDes(elevator) {
     })
   }
   console.log('this is des evelation:', desElev);
-  getElevationCompare();
 }
+
 
 // test function for elevation
 function getElevationCompare() {
+  console.log(desElev);
+  console.log(posElev);
   for (let i = 0; i < desElev.length; i++) {
     elevFinal.push(Math.abs(posElev - desElev[i]))
   }
-  console.log('this is elev final:', elevFinal);
+  console.log(Math.abs(posElev - desElev[1]));
 }
 
 
