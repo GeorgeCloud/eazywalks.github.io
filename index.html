@@ -5,35 +5,51 @@
   <meta charset="utf-8">
   <link rel="stylesheet" type="text/css" href=styles/reset.css>
   <link rel="stylesheet" type="text/css" href=styles/base.css>
+  <link rel="stylesheet" href="styles/layout.css">
   <title>Elevation Info</title>
 </head>
 
 <body>
   <header>
-     <nav>
-           <input type="checkbox" id="css-toggle-menu" name="css-toggle-menu">
-           <ul class="main">
-                 <li><a href="">Home</a></li>
-                 <li><a href="">Services</a></li>
-                 <li><a href="">Contact</a></li>
-           </ul>
-           <label for="css-toggle-menu" id="css-toggle-menu"></label>
-     </nav>
+    <nav>
+      <input type="checkbox" id="css-toggle-menu" name="css-toggle-menu">
+      <ul class="main">
+        <li><a href="">Home</a></li>
+        <li><a href="">Services</a></li>
+        <li><a href="">Contact</a></li>
+      </ul>
+      <label for="css-toggle-menu" id="css-toggle-menu"></label>
+    </nav>
   </header>
   <main>
-     <h1>Easy walking ...</h1>
-     <h2>Seattle is known for having many hills in short distances. We decided to build this app in order to help you have a more informed decision and avoid "climbing" in order to reach a desitnation.</h2>
+    <h5>Hey! This is Eazy Walk here you can search for anything from a coffee shop to a small business to find the most efficient route</h5>
+    <form>
+      <p id="google-search">Your Search</p>
+      <input id="search" placeholder="Type here">
+    </form>
+    <button class="accordion">{{Location}}</button>
+    <div class="panel">
+      <label>Distance: {{distance}}</label>
+      <label>Elevation: {{ elevation }}</label>
+      <label>Rating: {{ rating }}</label>
+    </div>
   </main>
+  <!-- footer -->
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFvCBTC4gncWVqiOHfjbPWRQsmI9DXFP4&callback=initMap&libraries=places"></script>
+  <script type="text/javascript" src="server.js"></script>
+  <div class="footer"><p>
 
-  <p>find recomendations</p>
+  Heath, Hector, George and Sunitha <strong>For Final Project 301</strong>.</p>
+<div class="icons">
+  <a href="#" class="fa fa-github"></a>
+  <a href="#" class="fa fa-linkedin"></a>
+  <a href="#" class="fa fa-facebook"></a>
+  <a href="#" class="fa fa-twitter"></a>
+  </div>
+  </div>
+  <script type="text/javascript" src="views.js">
 
-  <form>
-    <input type="text" name="search" placeholder="Get the info...">
-  </form>
-<!-- footer -->
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFvCBTC4gncWVqiOHfjbPWRQsmI9DXFP4&callback=initMap&libraries=places"></script>
-<script type="text/javascript" src="server.js"></script>
-<div class="footer">Heath, Hector, George and Sunitha <strong>For Final Project 301</strong>.</div>
+  </script>
 </body>
 
 </html>
