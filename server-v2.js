@@ -36,7 +36,7 @@ const googleMapsClient = mapsG.createClient({
 //     radius: '500',
 //     types: ['store']
 // };
-
+// https://maps.googleapis.com/maps/api/elevation/json?locations=39.7391536,-104.9847034
 // var service = new google.maps.places.PlacesService();
 // service.nearbySearch(request, callback);
 

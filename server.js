@@ -9,11 +9,11 @@ let elevPos = {};
 
 let searchResults = [];
 
-function SearchResultsObject(name, add, dis, ele, rating, elecomp) {
+function SearchResultsObject(name, add, lat, lng, dis, ele, rating, elecomp) {
   this.name = name;
   this.address = add;
-  // this.latitute = lat;
-  // this.longitude = lng;
+  this.latitute = lat;
+  this.longitude = lng;
   this.distance = dis;
   this.elevation = ele;
   this.rating = rating;
@@ -47,7 +47,6 @@ function initMap() {
           elevator.getElevationForLocations({
             locations: [pos],
           }, function(response, err) {
-            if (!err){console.log(response[0].elevation*3.28)}
             elevPos = (Math.floor(response[0].elevation*3.28))
           })
         }
@@ -55,7 +54,7 @@ function initMap() {
         let request = {
           location: pos,
           // rankBy: google.maps.places.RankBy.DISTANCE,
-          radius: '500',
+          radius: '2000',
           name: 'starbucks',//search by name
           // type: ['coffee'],// search by type
           // keyword: ['coffee']// search by keyword
@@ -92,7 +91,7 @@ function processResults(results, status) {
         lat: results[i].geometry.location.lat(),
         lng: results[i].geometry.location.lng()
       })
-      searchResults.push(new SearchResultsObject(results[i].name, results[i].vicinity, 0, 0, results[i].rating,0));
+      searchResults.push(new SearchResultsObject(results[i].name, results[i].vicinity,results[i].geometry.location.lat(),results[i].geometry.location.lng(), 0, 0, results[i].rating,0));
     }
   }
   var distance = new google.maps.DistanceMatrixService;
