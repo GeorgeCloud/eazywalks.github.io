@@ -1,9 +1,5 @@
 'use strict';
 
-//
-// let templateSource = $('user-entry').text;
-// var template = Handlebars.compile(source);
-
 var acc = document.getElementsByClassName("accordion");
 var i;
 

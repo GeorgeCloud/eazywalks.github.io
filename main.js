@@ -1,7 +1,4 @@
-
-
 'use strict';
-
 
 
 let map, infoWindow;
@@ -20,6 +17,7 @@ function SearchResultsObject(name, add, dis, ele, rating, elecomp, imgUrl) {
   this.elevationcomp = elecomp;
   this.imgUrl = imgUrl;
 }
+
 
 function initMap(e) {
   e.preventDefault();
@@ -57,12 +55,14 @@ function initMap(e) {
         let request = {
           location: pos,
           // rankBy: google.maps.places.RankBy.DISTANCE,
-          radius: '500',
+          radius: '250',
           // name: 'subway',//search by name
           // type: ['coffee'],// search by type
           keyword: [$('#search').val()]// search by keyword
         };
 
+        searchResults = [];
+        $('.search-details').empty();
         // this is my current Location
         let marker = new google.maps.Marker({
           position: pos,
@@ -101,6 +101,7 @@ function processResults(results, status) {
         searchResults[i].imgUrl = results[i].photos[0].getUrl({maxWidth: 1000});
       }
     }
+
     // console.log(results);
   }
   var distance = new google.maps.DistanceMatrixService;
@@ -149,6 +150,13 @@ function displayLocationElevation(elevator) {
     });
   }
   console.log(searchResults);
+
+  // build the template
+  var template = Handlebars.compile($('#results-template').text());
+  searchResults.map(place => {
+    $('.search-details').append(template(place));
+  })
+
 }
 
 // this functions tell you if you are allowed the GPS to be accessed.
@@ -158,9 +166,4 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     'Error: The Geolocation service failed.' :
     'Error: Your browser doesn\'t support geolocation.');
   infoWindow.open(map);
-}
-
-function toHtml() {
-  var template = Handlebars.compile($('#book-list-template').text());
-  return template(this);
 }
