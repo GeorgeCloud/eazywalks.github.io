@@ -21,7 +21,9 @@ function SearchResultsObject(name, add, dis, ele, rating, elecomp, imgUrl) {
   this.imgUrl = imgUrl;
 }
 
-function initMap() {
+
+function initMap(e) {
+  e.preventDefault();
   map = new google.maps.Map(document.getElementById('map'), {
     center: {
       lat: 47.6182,
@@ -60,7 +62,7 @@ function initMap() {
           radius: '500',
           // name: 'subway',//search by name
           // type: ['coffee'],// search by type
-          keyword: ['park']// search by keyword
+          keyword: [$('#search').val()]// search by keyword
         };
 
         // this is my current Location
@@ -101,7 +103,8 @@ function processResults(results, status) {
         searchResults[i].imgUrl = results[i].photos[0].getUrl({maxWidth: 1000});
       }
     }
-    console.log(results);
+
+    // console.log(results);
   }
   var distance = new google.maps.DistanceMatrixService;
   distanceLocation(distance);
