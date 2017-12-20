@@ -11,6 +11,16 @@
   <link rel="stylesheet" type="text/css" href="styles/layout.css">
   <link rel="stylesheet" type="text/css" href="styles/module.css">
   <title>Elevation Info</title>
+
+<script id="results-template" type="text/x-handlebars-template">
+  <button class="accordion">{{name}} rating:{{rating}}</button>
+  <div class="panel">
+    <label>{{distance}}</label>
+    <label>{{elevation}}</label>
+    <label>{{rating}}</label>
+  </div>
+</script>
+
 </head>
 
 <body>
@@ -34,12 +44,8 @@
       <input id="search" placeholder="Type here">
       <button onclick="initMap(event)"></button>
     </form>
-    <button class="accordion">{{Location}}</button>
-    <div class="panel">
-      <label>Distance: {{distance}}</label>
-      <label>Elevation: {{ elevation }}</label>
-      <label>Rating: {{ rating }}</label>
-    </div>
+    <div class="search-details"></div>
+
   </main>
 
   <!-- footer -->
@@ -58,6 +64,7 @@
 
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFvCBTC4gncWVqiOHfjbPWRQsmI9DXFP4&libraries=places"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
   <script type="text/javascript" src="main.js"></script>
   <script type="text/javascript" src="views.js"></script>
 

@@ -1,7 +1,4 @@
-
-
 'use strict';
-
 
 
 let map, infoWindow;
@@ -65,6 +62,8 @@ function initMap(e) {
           keyword: [$('#search').val()]// search by keyword
         };
 
+        searchResults = [];
+        $('.search-details').empty();
         // this is my current Location
         let marker = new google.maps.Marker({
           position: pos,
@@ -152,6 +151,10 @@ function displayLocationElevation(elevator) {
     });
   }
   console.log(searchResults);
+  var template = Handlebars.compile($('#results-template').text());
+  searchResults.map(place => {
+    $('.search-details').append(template(place));
+  })
 }
 
 // this functions tell you if you are allowed the GPS to be accessed.
