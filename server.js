@@ -9,15 +9,14 @@ let elevPos = {};
 
 let searchResults = [];
 
-function SearchResultsObject(name, add, dis, ele, rating, elecomp) {
+function SearchResultsObject(name, add, dis, ele, rating, elecomp, imgUrl) {
   this.name = name;
   this.address = add;
-  // this.latitute = lat;
-  // this.longitude = lng;
   this.distance = dis;
   this.elevation = ele;
   this.rating = rating;
   this.elevationcomp = elecomp;
+  this.imgUrl = imgUrl;
 }
 
 function initMap() {
@@ -93,6 +92,7 @@ function processResults(results, status) {
         lng: results[i].geometry.location.lng()
       })
       searchResults.push(new SearchResultsObject(results[i].name, results[i].vicinity, 0, 0, results[i].rating,0));
+      searchResults[i].imgUrl = results[i].photos[0].getUrl({maxWidth: 640});
     }
   }
   var distance = new google.maps.DistanceMatrixService;
