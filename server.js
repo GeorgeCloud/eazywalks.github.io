@@ -3,9 +3,19 @@
 let map, infoWindow;
 let pos = {};
 let des = [];
-let posElev = {};
-let desElev = [];
-let elevFinal =[];
+let elevPos = 114;
+
+let searchResults = [];
+
+function SearchResultsObject(name, lat, lng, dis, ele, rating, elecomp) {
+  this.name = name;
+  this.latitute = lat;
+  this.longitude = lng;
+  this.distance = dis;
+  this.elevation = ele;
+  this.rating = rating;
+  this.elevationcomp = elecomp;
+}
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -36,14 +46,6 @@ function initMap() {
         };
 
 
-
-
-        let service = new google.maps.places.PlacesService(map);
-        service.nearbySearch(request, processResults);
-        // infoWindow.setPosition(pos);
-        // infoWindow.setContent('Location found.');
-        // infoWindow.open(map);
-
         // this is my current Location
         let marker = new google.maps.Marker({
           position: pos,
@@ -52,6 +54,9 @@ function initMap() {
           map: map
         });
         map.setCenter(pos);
+
+        let service = new google.maps.places.PlacesService(map);
+        service.nearbySearch(request, processResults);
       },
       function() {
         handleLocationError(true, infoWindow, map.getCenter());
@@ -64,34 +69,23 @@ function initMap() {
 }
 
 function processResults(results, status) {
-  console.log(results);
+  // console.log(results);
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     for (let i = 0; i < results.length; i++) {
       createMarker(results[i])
       des.push({
         lat: results[i].geometry.location.lat(),
         lng: results[i].geometry.location.lng()
-      });
+      })
+      searchResults.push(new SearchResultsObject(results[i].name, results[i].geometry.location.lat(), results[i].geometry.location.lng(), 0, 0, results[i].rating,0));
     }
   }
+  var distance = new google.maps.DistanceMatrixService;
+  distanceLocation(distance);
   var elevator = new google.maps.ElevationService;
-  distance();
-  getElevationPos(elevator);
-  console.log('this is pos lat/log:', pos);
-  console.log('this is des lat/log:', des);
+  displayLocationElevation(elevator);
 }
 
-
-// calculate DISTANCE
-function distance() {
-  for (let i = 0; i < des.length; i++) {
-    var dist = getDistance(
-      {lat: pos.lat, lon: pos.lng},
-      {lat: des[i].lat, lon: des[i].lng}
-    )
-    console.log('this is distance: ' + dist + ' meters')
-  }
-}
 
 // creates the markers
 function createMarker(place) {
@@ -106,42 +100,38 @@ function createMarker(place) {
   });
 }
 
-// calculate evelation
-let getElevationPos = function(elevator) {
-  // Initiate the location request
-  elevator.getElevationForLocations({
-    locations: [pos],
-  }, function(response, err) {
-    if (!err){console.log(response[0].elevation*3.28)}
-    posElev = (Math.floor(response[0].elevation*3.28))
-    console.log('this is pos elevation:', posElev);
-    getElevationDes(elevator);
-  })
-}
+//calculate distance
+//destinations: [`${des[i].lat}, ${des[i].lng}`],
 
-function getElevationDes(elevator) {
-  // Initiate the location request
-  for (let i = 0; i < des.length; i++) {
-    elevator.getElevationForLocations({
-      locations: [des[i]],
-    }, function(response){
-      desElev.push(Math.floor(response[0].elevation*3.28))
+function distanceLocation(distance) {
+  for (let i = 0; i < searchResults.length; i++) {
+    distance.getDistanceMatrix({
+      origins: [pos],
+      destinations: [des[i]],
+      travelMode: google.maps.TravelMode.DRIVING,
+      unitSystem: google.maps.UnitSystem.IMPERIAL,
+    }, function(results, err){
+      searchResults[i].distance =  results.rows[0].elements[0].distance.text;
     })
   }
-  console.log('this is des evelation:', desElev);
 }
 
+// calculate starting elevation
 
-// test function for elevation
-function getElevationCompare() {
-  console.log(desElev);
-  console.log(posElev);
-  for (let i = 0; i < desElev.length; i++) {
-    elevFinal.push(Math.abs(posElev - desElev[i]))
+
+// calculate elevation
+function displayLocationElevation(elevator) {
+  for (let i = 0; i < searchResults.length; i++) {
+  //  console.log(`${searchResults[i].latitute}, ${searchResults[i].longitude}`);
+    elevator.getElevationForLocations({
+      locations: [des[i]],
+    }, function(response, err){
+      searchResults[i].elevation =  Math.floor(response[0].elevation*3.28);
+      searchResults[i].elevationcomp =  Math.abs(elevPos - searchResults[i].elevation);
+    });
   }
-  console.log(Math.abs(posElev - desElev[1]));
+  console.log(searchResults);
 }
-
 
 // this functions tell you if you are allowed the GPS to be accessed.
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
