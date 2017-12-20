@@ -32,6 +32,7 @@
     <form>
       <p id="google-search">Your Search</p>
       <input id="search" placeholder="Type here">
+      <button onclick="initMap(event)"></button>
     </form>
     <button class="accordion">{{Location}}</button>
     <div class="panel">
@@ -55,10 +56,10 @@
 <!-- div for the map image -->
   <div id="map"></div>
 
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFvCBTC4gncWVqiOHfjbPWRQsmI9DXFP4&callback=initMap&libraries=places"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFvCBTC4gncWVqiOHfjbPWRQsmI9DXFP4&libraries=places"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script type="text/javascript" src="main.js"></script>
-  <script type="text/javascript" src="views.js"></script>
+  <!-- <script type="text/javascript" src="views.js"></script> -->
 </body>
 
 </html>
