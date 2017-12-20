@@ -3,16 +3,18 @@
 let map, infoWindow;
 let pos = {};
 let des = [];
+let elevPos = 114;
 
 let searchResults = [];
 
-function SearchResultsObject(name, lat, lng, dis, ele, rating) {
+function SearchResultsObject(name, lat, lng, dis, ele, rating, elecomp) {
   this.name = name;
   this.latitute = lat;
   this.longitude = lng;
   this.distance = dis;
   this.elevation = ele;
   this.rating = rating;
+  this.elevationcomp = elecomp;
 }
 
 function initMap() {
@@ -42,7 +44,8 @@ function initMap() {
           // type: ['coffee'],// search by type
           // keyword: ['coffee']// search by keyword
         };
-
+ //       searchResults.push(new SearchResultsObject(request.name, position.coords.latitude, position.coords.longitude, 0, 0, 0));
+        
         // this is my current Location
         let marker = new google.maps.Marker({
           position: pos,
@@ -66,7 +69,7 @@ function initMap() {
 }
 
 function processResults(results, status) {
-  //console.log(results);
+  console.log(results);
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     for (let i = 0; i < results.length; i++) {
       createMarker(results[i])
@@ -74,9 +77,7 @@ function processResults(results, status) {
         lat: results[i].geometry.location.lat(),
         lng: results[i].geometry.location.lng()
       })
-//      console.log(results[i].rating);
-      searchResults.push(new SearchResultsObject(results[i].name, results[i].geometry.location.lat(), results[i].geometry.location.lng(), 0, 0, results[i].rating));
-
+      searchResults.push(new SearchResultsObject(results[i].name, results[i].geometry.location.lat(), results[i].geometry.location.lng(), 0, 0, results[i].rating,0));
     }
   }
   var distance = new google.maps.DistanceMatrixService;
@@ -110,10 +111,7 @@ function distanceLocation(distance) {
      travelMode: google.maps.TravelMode.DRIVING,
      unitSystem: google.maps.UnitSystem.IMPERIAL,
    }, function(results, err){
-       //console.log(results.rows[0].elements[0].distance.text);
-
        searchResults[i].distance =  results.rows[0].elements[0].distance.text;
-       console.log(searchResults[i].distance)
   })
  } 
 }
@@ -125,9 +123,8 @@ function displayLocationElevation(elevator) {
     elevator.getElevationForLocations({
        locations: [des[i]],
        }, function(response, err){
-         console.log(response);
-      //   console.log(Math.floor(response[0].elevation*3.28));
          searchResults[i].elevation =  Math.floor(response[0].elevation*3.28);
+         searchResults[i].elevationcomp =  Math.abs(elevPos - searchResults[i].elevation);
     });
   }
 }
