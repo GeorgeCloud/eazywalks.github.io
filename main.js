@@ -102,13 +102,13 @@ function processResults(results, status) {
         searchResults[i].imgUrl = results[i].photos[0].getUrl({maxWidth: 1000});
       }
     }
-
     // console.log(results);
   }
   var distance = new google.maps.DistanceMatrixService;
   distanceLocation(distance);
   var elevator = new google.maps.ElevationService;
   displayLocationElevation(elevator);
+  accordPopulate();
 }
 
 // creates the markers
@@ -123,8 +123,6 @@ function createMarker(place) {
     infoWindow.open(map, this);
   });
 }
-
-
 
 //calculate distance
 function distanceLocation(distance) {
@@ -150,11 +148,8 @@ function displayLocationElevation(elevator) {
       searchResults[i].elevationcomp =  Math.abs(searchResults[i].elevation - elevPos);
     });
   }
-  console.log(searchResults);
-  var template = Handlebars.compile($('#results-template').text());
-  searchResults.map(place => {
-    $('.search-details').append(template(place));
-  })
+  //console.log(searchResults);
+
 }
 
 // this functions tell you if you are allowed the GPS to be accessed.
