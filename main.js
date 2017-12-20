@@ -40,6 +40,7 @@ function initMap() {
           lng: position.coords.longitude
         };
 
+        searchResults = [];
         var elevator = new google.maps.ElevationService;
         getElevationPos(elevator);
 
