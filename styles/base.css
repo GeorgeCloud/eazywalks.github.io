@@ -1,4 +1,199 @@
 
+
+/***************** FONTS ********************/
+
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,300");
+html {
+  font-size: 62.5%;
+  font-family: 'Open Sans', sans-serif;
+}
+
+body {
+  font-size: 1.8rem;
+  min-height: 100vh;
+  background-color: #A1D8FF;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 1.6rem;
+}
+
+
+p {
+  display: inline-block;
+  font-size: 17px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+header {
+  position: relative;
+}
+
+main {
+  padding: 2rem;
+}
+
+/************** NAVIGATION ***************/
+
+nav ul {
+  max-width: 100%;
+  margin: -10px;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #EFE2B4;
+  text-align: center;
+}
+
+nav ul, nav li {
+  flex: 1;
+  list-style-type: none;
+}
+
+nav a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  font-size: 1.8rem;
+}
+
+nav a:hover {
+  background: #A1D8FF;
+  color: black;
+}
+
+nav li {
+  position: relative;
+  line-height: 50px;
+  color: black;
+  text-align: center;
+}
+
+nav input, nav label {
+  display: none;
+  width: 30px;
+  height: 30px;
+  color: black;
+  text-align: center;
+  line-height: 30px;
+  font-size: 1.6rem;
+  border-radius: 2px;
+}
+
+nav label {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  transition: .4s;
+}
+
+nav label:hover {
+  cursor: pointer;
+}
+
+nav label:before {
+  font-family: FontAwesome;
+  font-size: 24px;
+  content: "\f0c9";
+  text-align: center;
+}
+
+/************* MEDIA QUERIES **************/
+
+@media only screen and (max-width: 760px) {
+  nav {
+    position: relative;
+  }
+  nav ul {
+    transform: translateY(-100%);
+    box-shadow: 0 0 5px rgba(0, 0, 0, .7);
+    transition: all .4s;
+    position: absolute;
+    width: 100%;
+  }
+  nav li {
+    flex: none;
+    width: 100%;
+    border-bottom: solid 1px #EFE2B4;
+  }
+  nav input[type="checkbox"]:checked+ul {
+    transform: translateY(0%);
+    width: 100%;
+    background: #EFE2B4;
+    transition: all .4s;
+  }
+  nav label {
+    display: block;
+  }
+  nav input[type="checkbox"]:checked+ul li:nth-child(1) {}
+}
+
+/* animates search bar */
+
+input[type=text] {
+  width: 130px;
+  box-sizing: border-box;
+  border: 2px solid #EFE2B4;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  -webkit-transition: width 0.4s ease-in-out;
+  -webkit-margin-start: 18px;
+  transition: width 0.4s ease-in-out;
+}
+
+input[type=text]:focus {
+  width: 97%;
+}
+
+/* end of search bar */
+
+/* footer */
+
+.footer {
+  position: fixed;
+  right: 0;
+  bottom: -34px;
+  left: 0;
+  background-color: #EFE2B4;
+  color: black;
+  text-align: center;
+  max-width: 100%;
+}
+
+.fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 30px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+  border-radius: 50%;
+  display: inline-block;
+  color: black;
+  padding-top: 6px;
+  padding-bottom: 35px;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+.icons {
+  float: right;
+}
+
+.icon:link {
+  color: red;
+}
+
 /* Optional: Makes the sample page fill the window. */
 html, body {
   height: 100%;
@@ -13,3 +208,4 @@ html, body {
 #map {
   height: 60%;
 }
+
