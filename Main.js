@@ -53,9 +53,9 @@ function initMap() {
           location: pos,
           // rankBy: google.maps.places.RankBy.DISTANCE,
           radius: '500',
-          name: 'starbucks',//search by name
+          // name: 'subway',//search by name
           // type: ['coffee'],// search by type
-          // keyword: ['coffee']// search by keyword
+          keyword: ['park']// search by keyword
         };
 
         // this is my current Location
@@ -90,8 +90,13 @@ function processResults(results, status) {
         lng: results[i].geometry.location.lng()
       })
       searchResults.push(new SearchResultsObject(results[i].name, results[i].vicinity, 0, 0, results[i].rating,0));
-      searchResults[i].imgUrl = results[i].photos[0].getUrl({maxWidth: 640});
+      if (!results[i].photos) {
+        searchResults[i].imgUrl = 'http://via.placeholder.com/350x150';
+      } else {
+        searchResults[i].imgUrl = results[i].photos[0].getUrl({maxWidth: 1000});
+      }
     }
+    console.log(results);
   }
   var distance = new google.maps.DistanceMatrixService;
   distanceLocation(distance);
@@ -99,7 +104,6 @@ function processResults(results, status) {
   // getElevationPos(elevator);
   displayLocationElevation(elevator);
 }
-
 
 // creates the markers
 function createMarker(place) {
