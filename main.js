@@ -21,6 +21,7 @@ function SearchResultsObject(name, add, dis, ele, rating, elecomp, imgUrl) {
   this.imgUrl = imgUrl;
 }
 
+
 function initMap(e) {
   e.preventDefault();
   map = new google.maps.Map(document.getElementById('map'), {
@@ -101,6 +102,7 @@ function processResults(results, status) {
         searchResults[i].imgUrl = results[i].photos[0].getUrl({maxWidth: 1000});
       }
     }
+
     // console.log(results);
   }
   var distance = new google.maps.DistanceMatrixService;
