@@ -36,6 +36,21 @@ function initMap() {
           lng: position.coords.longitude
         };
 
+
+        var elevator = new google.maps.ElevationService;
+        getElevationPos(elevator);
+
+        function getElevationPos(elevator) {
+          // Initiate the location request
+          elevator.getElevationForLocations({
+            locations: [pos],
+          }, function(response, err) {
+            if (!err){console.log(response[0].elevation*3.28)}
+            elevPos = (Math.floor(response[0].elevation*3.28))
+            console.log('this is pos elevation:', elevPos);
+          })
+        }
+
         let request = {
           location: pos,
           // rankBy: google.maps.places.RankBy.DISTANCE,
@@ -83,6 +98,7 @@ function processResults(results, status) {
   var distance = new google.maps.DistanceMatrixService;
   distanceLocation(distance);
   var elevator = new google.maps.ElevationService;
+  // getElevationPos(elevator);
   displayLocationElevation(elevator);
 }
 
@@ -112,20 +128,19 @@ function distanceLocation(distance) {
       searchResults[i].distance =  results.rows[0].elements[0].distance.text;
     })
   }
-  getElevationPos();
 }
 
 // calculate starting elevation
-function getElevationPos(elevator) {
-  // Initiate the location request
-  elevator.getElevationForLocations({
-    locations: [pos],
-  }, function(response, err) {
-    if (!err){console.log(response[0].elevation*3.28)}
-    elevPos = (Math.floor(response[0].elevation*3.28))
-    console.log('this is pos elevation:', elevPos);
-  })
-}
+// function getElevationPos(elevator) {
+//   // Initiate the location request
+//   elevator.getElevationForLocations({
+//     locations: [pos],
+//   }, function(response, err) {
+//     if (!err){console.log(response[0].elevation*3.28)}
+//     elevPos = (Math.floor(response[0].elevation*3.28))
+//     console.log('this is pos elevation:', elevPos);
+//   })
+// }
 
 // calculate elevation
 function displayLocationElevation(elevator) {
