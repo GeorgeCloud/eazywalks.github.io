@@ -159,3 +159,8 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     'Error: Your browser doesn\'t support geolocation.');
   infoWindow.open(map);
 }
+
+function toHtml() {
+  var template = Handlebars.compile($('#book-list-template').text());
+  return template(this);
+}

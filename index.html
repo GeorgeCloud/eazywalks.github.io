@@ -11,6 +11,18 @@
   <link rel="stylesheet" type="text/css" href="styles/layout.css">
   <link rel="stylesheet" type="text/css" href="styles/module.css">
   <title>Elevation Info</title>
+
+  <!-- this is for dispaying the Books -->
+  <script id="book-list-template" type="text/x-handlebars-template">
+    <li class="book-items" data-bookid={{book_id}}>
+      <img src={{image_url}}>
+        <div class="book-overlay">
+          <h3>{{title}}</h3>
+          <h4>{{author}}</h4>
+          <p class="detail-link"><a href="/books/{{book_id}}">Click to see more!!!!</a></p>
+        </div>
+    </li>
+  </script>
 </head>
 
 <body>
@@ -27,12 +39,12 @@
     </nav>
   </header>
 
-  <main>
+  <main class="main">
     <h5>Hey! This is Eazy Walk here you can search for anything from a coffee shop to a small business to find the most efficient route</h5>
     <form>
       <p id="google-search">Your Search</p>
       <input id="search" placeholder="Type here">
-      <button onclick="initMap(event)"></button>
+      <button onclick="initMap(event)" onclick="app.app.places.initIndexPage()"></button>
     </form>
     <button class="accordion">{{Location}}</button>
     <div class="panel">
@@ -41,6 +53,15 @@
       <label>Rating: {{ rating }}</label>
     </div>
   </main>
+
+  <!-- this is adding the books to the page -->
+      <section class="book-view container">
+        <h2 class="view-title">My books</h2>
+        <section class="book-list">
+            <ul id="book-list">
+            </ul>
+        </section>
+      </section>
 
   <!-- footer -->
   <div class="footer"><p>

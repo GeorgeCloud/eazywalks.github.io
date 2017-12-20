@@ -18,3 +18,11 @@ for (i = 0; i < acc.length; i++) {
     }
   });
 }
+
+//shows all the books on the home page
+  bookView.initIndexPage = function() {
+    $('.container').hide();
+    $('.book-view').show();
+    $('#book-list').empty();
+    module.Book.all.map(book => $(`#book-list`).append(book.toHtml()));
+  }
