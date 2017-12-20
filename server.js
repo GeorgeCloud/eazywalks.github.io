@@ -4,6 +4,16 @@ let map, infoWindow;
 let pos = {};
 let des = [];
 
+let searchResults = [];
+
+function SearchResultsObject(name, lat, lng, dis, ele, rating) {
+  this.name = name;
+  this.latitute = lat;
+  this.longitude = lng;
+  this.distance = dis;
+  this.elevation = ele;
+  this.rating = rating;
+}
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -63,7 +73,9 @@ function processResults(results, status) {
       des.push({
         lat: results[i].geometry.location.lat(),
         lng: results[i].geometry.location.lng()
-      });
+      })
+//      console.log(results[i].rating);
+      searchResults.push(new SearchResultsObject(results[i].name, results[i].geometry.location.lat(), results[i].geometry.location.lng(), 0, 0, results[i].rating));
 
     }
   }
@@ -87,32 +99,46 @@ function createMarker(place) {
   });
 }
 
-// calculate elevation
-function displayLocationElevation(elevator) {
-  // Initiate the location request
-  elevator.getElevationForLocations({
-    locations: [pos],
-  }, function(response, err){
-    if (!err){console.log(response[0].elevation*3.28)}
-    console.log(Math.floor(response[0].elevation*3.28))
-  })
-}
+//calculate distance
+//destinations: [`${des[i].lat}, ${des[i].lng}`],
 
-
-// calculate distance
 function distanceLocation(distance) {
-  //console.log([`${des[0].lat}, ${des[0].lng}`]);
-   for (let i = 0; i < des.length; i++) {
-  distance.getDistanceMatrix({
-    origins: [pos],
-    destinations: [`${des[i].lat}, ${des[i].lng}`],
-    travelMode: google.maps.TravelMode.DRIVING,
-    unitSystem: google.maps.UnitSystem.IMPERIAL,
-  }, function(results, err){
-    console.log(results.rows[0].elements[0].distance.text);
+  for (let i = 0; i < searchResults.length; i++) {
+   distance.getDistanceMatrix({
+     origins: [pos],
+     destinations: [des[i]],
+     travelMode: google.maps.TravelMode.DRIVING,
+     unitSystem: google.maps.UnitSystem.IMPERIAL,
+   }, function(results, err){
+       //console.log(results.rows[0].elements[0].distance.text);
+
+       searchResults[i].distance =  results.rows[0].elements[0].distance.text;
+       console.log(searchResults[i].distance)
   })
  } 
 }
+
+// calculate elevation
+function displayLocationElevation(elevator) {
+  for (let i = 0; i < searchResults.length; i++) {  
+  //  console.log(`${searchResults[i].latitute}, ${searchResults[i].longitude}`);
+    elevator.getElevationForLocations({
+       locations: [des[i]],
+       }, function(response, err){
+         console.log(response);
+      //   console.log(Math.floor(response[0].elevation*3.28));
+         searchResults[i].elevation =  Math.floor(response[0].elevation*3.28);
+    });
+  }
+}
+
+// function getElevationCompare() {
+//   for (let i = 0; i < desElev.length; i++) {
+//     elevFinal.push(Math.abs(posElev - desElev[i]))
+//   }
+//   console.log('this is elev final:', elevFinal);
+// }
+
 
 // this functions tell you if you are allowed the GPS to be accessed.
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
