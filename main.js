@@ -3,7 +3,6 @@
 let map, infoWindow;
 let pos = {};
 let des = [];
-let elevPos = {};
 
 let searchResults = [];
 
@@ -35,27 +34,19 @@ function initMap() {
           lng: position.coords.longitude
         };
 
-        var elevator = new google.maps.ElevationService;
-        getElevationPos(elevator);
-
-        function getElevationPos(elevator) {
-          // Initiate the location request
-          elevator.getElevationForLocations({
-            locations: [pos],
-          }, function(response, err) {
-            elevPos = (Math.floor(response[0].elevation*3.28))
-          })
-        }
-
         let request = {
           location: pos,
           // rankBy: google.maps.places.RankBy.DISTANCE,
           radius: '1500',
-          name: 'starbucks',//search by name
-          // type: ['coffee'],// search by type
-          // keyword: ['coffee']// search by keyword
+          name: 'starbucks', //search by name // type: ['coffee'],// search by type // keyword: ['coffee']// search by keyword
         };
-  //      searchResults.push(new SearchResultsObject(request.name, 0, 0, 0, 0,0));   
+        searchResults.push(new SearchResultsObject(request.name, 0, 0, 0, 0,0));   
+        
+        var elevator = new google.maps.ElevationService;        
+        displayLocationElevation(elevator, request.location, 0);
+        
+        let service = new google.maps.places.PlacesService(map);
+        service.nearbySearch(request, processResults);
 
         // this is my current Location
         let marker = new google.maps.Marker({
@@ -66,8 +57,6 @@ function initMap() {
         });
         map.setCenter(pos);
 
-        let service = new google.maps.places.PlacesService(map);
-        service.nearbySearch(request, processResults);
       },
       function() {
         handleLocationError(true, infoWindow, map.getCenter());
@@ -83,7 +72,7 @@ function processResults(results, status) {
   var elevator = new google.maps.ElevationService;
   var distance = new google.maps.DistanceMatrixService;
 
-  if (status === google.maps.places.PlacesServiceStatus.OK) {
+  if (status === google.maps.places.PlacesServiceStatus.OK) {    
     for (let i = 0; i < results.length; i++) {
       createMarker(results[i])
       des.push({
@@ -91,8 +80,8 @@ function processResults(results, status) {
         lng: results[i].geometry.location.lng()
       })
       searchResults.push(new SearchResultsObject(results[i].name, results[i].vicinity, 0, 0, results[i].rating,0));      
-      distanceLocation(distance, des[i], i);
-      displayLocationElevation(elevator, des[i], i);
+      distanceLocation(distance, des[i], i+1);
+      displayLocationElevation(elevator, des[i], i+1);
     }
     console.log(searchResults);
   }
@@ -116,7 +105,7 @@ function displayLocationElevation(elevator, latlng, index) {
       locations: [latlng], 
     }, function(response, err){
       searchResults[index].elevation =  Math.floor(response[0].elevation*3.28);
-      searchResults[index].elevationcomp =  Math.abs(searchResults[index].elevation - elevPos);
+      searchResults[index].elevationcomp =  Math.abs(searchResults[index].elevation - searchResults[0].elevation);
     });
 }
 
