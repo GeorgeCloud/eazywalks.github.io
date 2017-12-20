@@ -101,7 +101,6 @@ function processResults(results, status) {
   var distance = new google.maps.DistanceMatrixService;
   distanceLocation(distance);
   var elevator = new google.maps.ElevationService;
-  // getElevationPos(elevator);
   displayLocationElevation(elevator);
 }
 
@@ -118,7 +117,7 @@ function createMarker(place) {
   });
 }
 
-//destinations: [`${des[i].lat}, ${des[i].lng}`],
+
 
 //calculate distance
 function distanceLocation(distance) {
@@ -137,7 +136,6 @@ function distanceLocation(distance) {
 // calculate elevation
 function displayLocationElevation(elevator) {
   for (let i = 0; i < searchResults.length; i++) {
-  //  console.log(`${searchResults[i].latitute}, ${searchResults[i].longitude}`);
     elevator.getElevationForLocations({
       locations: [des[i]],
     }, function(response, err){
