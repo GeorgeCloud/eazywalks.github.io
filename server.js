@@ -3,7 +3,7 @@
 let map, infoWindow;
 let pos = {};
 let des = [];
-let elevPos = 114;
+let elevPos = {};
 
 let searchResults = [];
 
@@ -101,23 +101,31 @@ function createMarker(place) {
 }
 
 //calculate distance
-//destinations: [`${des[i].lat}, ${des[i].lng}`],
-
 function distanceLocation(distance) {
   for (let i = 0; i < searchResults.length; i++) {
     distance.getDistanceMatrix({
       origins: [pos],
       destinations: [des[i]],
-      travelMode: google.maps.TravelMode.DRIVING,
+      travelMode: google.maps.TravelMode.WALKING,
       unitSystem: google.maps.UnitSystem.IMPERIAL,
     }, function(results, err){
       searchResults[i].distance =  results.rows[0].elements[0].distance.text;
     })
   }
+  getElevationPos();
 }
 
 // calculate starting elevation
-
+function getElevationPos(elevator) {
+  // Initiate the location request
+  elevator.getElevationForLocations({
+    locations: [pos],
+  }, function(response, err) {
+    if (!err){console.log(response[0].elevation*3.28)}
+    elevPos = (Math.floor(response[0].elevation*3.28))
+    console.log('this is pos elevation:', elevPos);
+  })
+}
 
 // calculate elevation
 function displayLocationElevation(elevator) {
