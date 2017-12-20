@@ -6,6 +6,55 @@
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   <meta charset="utf-8">
 
+  <link rel="stylesheet" type="text/css" href=styles/reset.css>
+  <link rel="stylesheet" type="text/css" href=styles/base.css>
+  <link rel="stylesheet" href="styles/layout.css">
+  <title>Elevation Info</title>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <input type="checkbox" id="css-toggle-menu" name="css-toggle-menu">
+      <ul class="main">
+        <li><a href="">Home</a></li>
+        <li><a href="">Services</a></li>
+        <li><a href="">Contact</a></li>
+      </ul>
+      <label for="css-toggle-menu" id="css-toggle-menu"></label>
+    </nav>
+  </header>
+  <main>
+    <h5>Hey! This is Eazy Walk here you can search for anything from a coffee shop to a small business to find the most efficient route</h5>
+    <form>
+      <p id="google-search">Your Search</p>
+      <input id="search" placeholder="Type here">
+    </form>
+    <button class="accordion">{{Location}}</button>
+    <div class="panel">
+      <label>Distance: {{distance}}</label>
+      <label>Elevation: {{ elevation }}</label>
+      <label>Rating: {{ rating }}</label>
+    </div>
+  </main>
+  <!-- footer -->
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFvCBTC4gncWVqiOHfjbPWRQsmI9DXFP4&callback=initMap&libraries=places"></script>
+  <script type="text/javascript" src="server.js"></script>
+  <div class="footer"><p>
+
+  Heath, Hector, George and Sunitha <strong>For Final Project 301</strong>.</p>
+<div class="icons">
+  <a href="#" class="fa fa-github"></a>
+  <a href="#" class="fa fa-linkedin"></a>
+  <a href="#" class="fa fa-facebook"></a>
+  <a href="#" class="fa fa-twitter"></a>
+  </div>
+  </div>
+  <script type="text/javascript" src="views.js">
+
+  </script>
+
+
   <link rel="stylesheet" href="styles/reset.css">
   <link rel="stylesheet" href="styles/base.css">
   <link rel="stylesheet" href="styles/layout.css">
@@ -16,11 +65,18 @@
 <body>
   <div id="map"></div>
 
+  
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzyOK8PFYzcynFgnyty0Zr10_Oc7dDv4E&callback=initMap&libraries=places"></script>
+  <script type="text/javascript" src="server-v1.js"></script>
+  <!-- The async attribute lets the browser render the rest of your website while the Maps JavaScript API loads. When the API is ready, it will call the function specified using the callback parameter. -->
+  <!-- places library enables your application to search for places such as establishments, geographic locations, or prominent points of interest, within a defined area. -->
+
 
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFvCBTC4gncWVqiOHfjbPWRQsmI9DXFP4&callback=initMap&libraries=places"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script type="text/javascript" src="server.js"></script>
   <!-- <script type="text/javascript" src="serverDist.js"></script> -->
+
 </body>
 
 </html>
