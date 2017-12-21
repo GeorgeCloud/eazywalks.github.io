@@ -4,13 +4,11 @@
 
 function accordPopulate() {
 
-  console.log(searchResults);
-
   let template = Handlebars.compile($('#results-template').text());
-  searchResults.map(place => {console.log(searchResults[0].distance);
+  searchResults.map(place => {console.log(searchResults[0].elevation);
     $('.search-details').append(template(place));})
 
-  var acc = document.getElementsByClassName("accordion");
+  var acc = $(".accordion");
 
   for (let i = 0; i < acc.length; i++) {
     acc[i].addEventListener("click", function() {
