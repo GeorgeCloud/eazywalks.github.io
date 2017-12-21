@@ -57,13 +57,15 @@ function initMap(e) {
           location: pos,
           // rankBy: google.maps.places.RankBy.DISTANCE,
           radius: '500',
-          // name: 'subway',//search by name
-          // type: ['coffee'],// search by type
+          // name: [$('#search-name').val()],//search by name
+          // type: [$('#search-type').val()],// search by type
           keyword: [$('#search').val()]// search by keyword
         };
 
+        // empty the handlebars and results
         searchResults = [];
         $('.search-details').empty();
+
         // this is my current Location
         let marker = new google.maps.Marker({
           position: pos,
@@ -72,7 +74,6 @@ function initMap(e) {
           map: map
         });
         map.setCenter(pos);
-
 
         let service = new google.maps.places.PlacesService(map);
         service.nearbySearch(request, processResults);
@@ -108,11 +109,8 @@ function processResults(results, status) {
   let statusD = distanceLocation(distance);
   var elevator = new google.maps.ElevationService;
   let statusE = displayLocationElevation(elevator);
-  console.log(statusD, statusE);
 
-  //if (statusD && statusE){
-  setTimeout(accordPopulate, 2000);
-  //accordPopulate();}
+  setTimeout(accordPopulate, 500);
 }
 
 // creates the markers
@@ -157,8 +155,7 @@ function displayLocationElevation(elevator) {
       statusE = true;
     });
   }
-  //console.log(searchResults);
-  return statusE;
+  console.log(searchResults);
 }
 
 // this functions tell you if you are allowed the GPS to be accessed.

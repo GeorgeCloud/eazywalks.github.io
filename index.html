@@ -10,14 +10,17 @@
   <link rel="stylesheet" type="text/css" href=styles/base.css>
   <link rel="stylesheet" type="text/css" href="styles/layout.css">
   <link rel="stylesheet" type="text/css" href="styles/module.css">
+  <link rel="stylesheet" type="text/css" href="styles/icons/style.css"
   <title>Elevation Info</title>
 
 <script id="results-template" type="text/x-handlebars-template">
-  <button class="accordion">{{name}}</button>
+  <button class="accordion"><h1>{{name}}</h1>
+  <label>Distance to location: {{distance}}</button>
   <div class="panel">
-    <div>Distance: {{distance}}</div>
-    <div>Elevation: {{elevation}}</div>
-    <div>Rating: {{rating}}</div>
+    <div><img class="search-img" src="{{imgUrl}}"></div>
+    <div class="icon-office"><h2>- {{address}}</h2></div>
+    <div class="icon-arrow-up-right2"><h2>- The elevation difference is: {{elevationcomp}} feet</h2></div>
+    <div class="last-div icon-bullhorn"><h2>- Rating: {{rating}}</h2></div>
   </div>
 </script>
 
@@ -37,15 +40,26 @@
     </nav>
   </header>
 
-  <main>
+  <main class="main">
     <h5>Hey! This is Eazy Walk here you can search for anything from a coffee shop to a small business to find the most efficient route</h5>
-    <form>
+    <form id="search-from">
       <p id="google-search">Your Search</p>
       <input id="search" placeholder="Type here">
       <button onclick="initMap(event)"></button>
     </form>
+
     <div class="search-details"></div>
+
   </main>
+
+  <!-- this is adding the books to the page -->
+      <section class="book-view container">
+        <h2 class="view-title">My books</h2>
+        <section class="book-list">
+            <ul id="book-list">
+            </ul>
+        </section>
+      </section>
 
   <!-- footer -->
   <div class="footer"><p>
@@ -66,7 +80,6 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
   <script type="text/javascript" src="views.js"></script>
   <script type="text/javascript" src="main.js"></script>
-
 
 </body>
 
