@@ -1,5 +1,3 @@
-
-
 /***************** FONTS ********************/
 
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css");
@@ -47,8 +45,9 @@ nav ul {
   margin: -10px;
   display: flex;
   flex-wrap: wrap;
-  background-color: #EFE2B4;
+  background-color: rgb(153, 49, 45);
   text-align: center;
+  border-radius: 10px;
 }
 
 nav ul, nav li {
@@ -64,7 +63,7 @@ nav a {
 }
 
 nav a:hover {
-  background: #A1D8FF;
+  background: rgb(194, 96, 75);
   color: black;
 }
 
@@ -199,13 +198,12 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: black;
+  background-color: white;
 }
 
 
 /* Always set the map height explicitly to define the size of the div
    * element that contains the map. */
 #map {
-  height: 60%;
+  height: 25%;
 }
-

@@ -12,45 +12,46 @@
   <link rel="stylesheet" type="text/css" href="styles/module.css">
   <title>Elevation Info</title>
 
-<script id="results-template" type="text/x-handlebars-template">
-  <button class="accordion">{{name}} rating:{{rating}}</button>
-  <div class="panel">
-    <label>{{distance}}</label>
-    <label>{{elevation}}</label>
-    <label>{{rating}}</label>
-  </div>
-</script>
+  <script id="results-template" type="text/x-handlebars-template">
+    <button class="accordion">{{name}}</button>
+    <div class="panel">
+      <div>Distance: {{distance}}</div>
+      <div>Elevation: {{elevation}}</div>
+      <div>Rating: {{rating}}</div>
+    </div>
+  </script>
 
 </head>
 
 <body>
-
-  <header>
-    <nav>
-      <input type="checkbox" id="css-toggle-menu" name="css-toggle-menu">
-      <ul class="main">
-        <li><a href="">Home</a></li>
-        <li><a href="">Services</a></li>
-        <li><a href="">Contact</a></li>
-      </ul>
-      <label for="css-toggle-menu" id="css-toggle-menu"></label>
-    </nav>
-  </header>
-
   <main>
+    <header>
+      <nav>
+        <input type="checkbox" id="css-toggle-menu" name="css-toggle-menu">
+        <ul class="main">
+          <li><a href="">Home</a></li>
+          <li><a href="">Services</a></li>
+          <li><a href="">Contact</a></li>
+        </ul>
+        <label for="css-toggle-menu" id="css-toggle-menu"></label>
+      </nav>
+    </header>
+
     <h5>Hey! This is Eazy Walk here you can search for anything from a coffee shop to a small business to find the most efficient route</h5>
     <form>
       <p id="google-search">Your Search</p>
       <input id="search" placeholder="Type here">
-      <button onclick="initMap(event)"></button>
+      <button id="google-button">Search</button>
     </form>
-    <div class="search-details"></div>
-
   </main>
+  <div class="search-details"></div>
+  <img style="margin-left:42%; margin-top:15%;" src="https://i.imgur.com/ZbT5QKr.gif">
+
 
   <!-- footer -->
-  <div class="footer"><p>
-    Heath, Hector, George and Sunitha <strong>For Final Project 301</strong>.</p>
+  <div class="footer">
+    <p>
+      Heath, Hector, George and Sunitha <strong>For Final Project 301</strong>.</p>
     <div class="icons">
       <a href="#" class="fa fa-github"></a>
       <a href="#" class="fa fa-linkedin"></a>
@@ -59,15 +60,14 @@
     </div>
   </div>
 
-<!-- div for the map image -->
+  <!-- div for the map image -->
   <div id="map"></div>
 
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFvCBTC4gncWVqiOHfjbPWRQsmI9DXFP4&libraries=places"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
-  <script type="text/javascript" src="main.js"></script>
   <script type="text/javascript" src="views.js"></script>
-
+  <script type="text/javascript" src="main.js"></script>
 </body>
 
 </html>

@@ -1,11 +1,11 @@
 .accordion {
-    background-color: #EFE2B4;
-    color: #444;
+    background-color: rgb(153, 49, 45);
+    color: white;
     font-weight: bold;
     cursor: pointer;
     padding: 12px;
     width: 100%;
-    border: none;
+    border-radius: 10px;
     text-align: left;
     outline: none;
     font-size: 15px;
@@ -13,18 +13,18 @@
 }
 
 .active, .accordion:hover {
-    background-color: #EFE2B4;
+    background-color: rgb(194, 96, 75);
 }
 
 .panel {
     display: none;
     padding: 0 18px;
-    background-color: #A1D8FF;
+    background-color: rgb();
 }
 
 #google-search {
   margin-top: 10%;
-  margin-left: 40%;
+  margin-left: 45%;
 }
 
 #search {
