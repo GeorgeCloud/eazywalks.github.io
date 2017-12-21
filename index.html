@@ -10,7 +10,7 @@
   <link rel="stylesheet" type="text/css" href=styles/base.css>
   <link rel="stylesheet" type="text/css" href="styles/layout.css">
   <link rel="stylesheet" type="text/css" href="styles/module.css">
-  <link rel="stylesheet" type="text/css" href="styles/icons/style.css"
+  <link rel="stylesheet" type="text/css" href="styles/icons/style.css">
   <title>Elevation Info</title>
 
 <script id="results-template" type="text/x-handlebars-template">
@@ -29,7 +29,7 @@
 <body>
 
   <header>
-    <nav>
+    <!-- <nav>
       <input type="checkbox" id="css-toggle-menu" name="css-toggle-menu">
       <ul class="main">
         <li><a href="">Home</a></li>
@@ -38,20 +38,25 @@
       </ul>
       <label for="css-toggle-menu" id="css-toggle-menu"></label>
     </nav>
-  </header>
+  </header> -->
 
   <main class="main">
     <h5 id="info">Hey! This is Eazy Walk here you can search for anything from a coffee shop to a small business to find the most efficient route</h5>
     <form id="search-from">
       <input id="search" placeholder="Search Here">
-      <button id="search-btn" onclick="initMap(event)">Start your Search</button>
+      <button id="search-btn">Start your Search</button>
     </form>
-
-    <div class="search-details"></div>
 
   </main>
 
+  <div class="search-details">
+  </div>
+  <div id="pokemon">
+    <img src="img/loading.gif">
+  </div>
 
+  <!-- div for the map image -->
+  <div id="map"></div>
 
   <!-- footer -->
   <div class="footer"><p>
@@ -63,9 +68,6 @@
       <a href="#" class="fa fa-twitter"></a>
     </div>
   </div>
-
-<!-- div for the map image -->
-  <div id="map"></div>
 
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFvCBTC4gncWVqiOHfjbPWRQsmI9DXFP4&libraries=places"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

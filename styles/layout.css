@@ -20,6 +20,7 @@
     display: none;
     padding: 0 18px;
     background-color: white;
+    outline: 1px black solid;
 }
 
 #google-search {
