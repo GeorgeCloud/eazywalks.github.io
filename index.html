@@ -5,7 +5,7 @@
   <title>Geolocation</title>
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   <meta charset="utf-8">
-
+  <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href=styles/reset.css>
   <link rel="stylesheet" type="text/css" href=styles/base.css>
   <link rel="stylesheet" type="text/css" href="styles/layout.css">
@@ -18,9 +18,9 @@
   <label>Distance to location: {{distance}}</button>
   <div class="panel">
     <div><img class="search-img" src="{{imgUrl}}"></div>
-    <div class="icon-office"><h2>- {{address}}</h2></div>
-    <div class="icon-arrow-up-right2"><h2>- The elevation difference is: {{elevationcomp}} feet</h2></div>
-    <div class="last-div icon-bullhorn"><h2>- Rating: {{rating}}</h2></div>
+    <div><span class="icon-office"></span><h2> {{address}}</h2></div>
+    <div><span class="icon-arrow-up-right2"></span><h2> The elevation difference is: {{elevationcomp}} feet</h2></div>
+    <div><span class="last-div icon-bullhorn"></span><h2> Rating: {{rating}}</h2></div>
   </div>
 </script>
 
@@ -41,25 +41,17 @@
   </header>
 
   <main class="main">
-    <h5>Hey! This is Eazy Walk here you can search for anything from a coffee shop to a small business to find the most efficient route</h5>
+    <h5 id="info">Hey! This is Eazy Walk here you can search for anything from a coffee shop to a small business to find the most efficient route</h5>
     <form id="search-from">
-      <p id="google-search">Your Search</p>
-      <input id="search" placeholder="Type here">
-      <button onclick="initMap(event)"></button>
+      <input id="search" placeholder="Search Here">
+      <button id="search-btn" onclick="initMap(event)">Start your Search</button>
     </form>
 
     <div class="search-details"></div>
 
   </main>
 
-  <!-- this is adding the books to the page -->
-      <section class="book-view container">
-        <h2 class="view-title">My books</h2>
-        <section class="book-list">
-            <ul id="book-list">
-            </ul>
-        </section>
-      </section>
+
 
   <!-- footer -->
   <div class="footer"><p>

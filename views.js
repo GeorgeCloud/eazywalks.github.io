@@ -2,7 +2,8 @@
 
 
 function accordPopulate() {
-  $(`#google-search`).empty();
+  $('#info').hide();
+  $('search').empty();
   let template = Handlebars.compile($('#results-template').text());
   searchResults.map(place => {$('.search-details').append(template(place));})
 
