@@ -39,6 +39,7 @@ function initMap(e) {
           lng: position.coords.longitude
         };
 
+        searchResults = [];
         var elevator = new google.maps.ElevationService;
         getElevationPos(elevator);
 
@@ -61,8 +62,10 @@ function initMap(e) {
           keyword: [$('#search').val()]// search by keyword
         };
 
+        // empty the handlebars and results
         searchResults = [];
         $('.search-details').empty();
+
         // this is my current Location
         let marker = new google.maps.Marker({
           position: pos,
@@ -71,7 +74,6 @@ function initMap(e) {
           map: map
         });
         map.setCenter(pos);
-
 
         let service = new google.maps.places.PlacesService(map);
         service.nearbySearch(request, processResults);
@@ -101,7 +103,6 @@ function processResults(results, status) {
         searchResults[i].imgUrl = results[i].photos[0].getUrl({maxWidth: 1000});
       }
     }
-
     // console.log(results);
   }
   var distance = new google.maps.DistanceMatrixService;
@@ -122,8 +123,6 @@ function createMarker(place) {
     infoWindow.open(map, this);
   });
 }
-
-
 
 //calculate distance
 function distanceLocation(distance) {
@@ -150,13 +149,7 @@ function displayLocationElevation(elevator) {
     });
   }
   console.log(searchResults);
-
-  // build the template
-  var template = Handlebars.compile($('#results-template').text());
-  searchResults.map(place => {
-    $('.search-details').append(template(place));
-  })
-
+  accordPopulate();
 }
 
 // this functions tell you if you are allowed the GPS to be accessed.
