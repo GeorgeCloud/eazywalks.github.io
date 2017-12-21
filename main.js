@@ -56,9 +56,9 @@ function initMap(e) {
         let request = {
           location: pos,
           // rankBy: google.maps.places.RankBy.DISTANCE,
-          radius: '250',
-          // name: 'subway',//search by name
-          // type: ['coffee'],// search by type
+          radius: '500',
+          // name: [$('#search-name').val()],//search by name
+          // type: [$('#search-type').val()],// search by type
           keyword: [$('#search').val()]// search by keyword
         };
 
@@ -106,9 +106,11 @@ function processResults(results, status) {
     // console.log(results);
   }
   var distance = new google.maps.DistanceMatrixService;
-  distanceLocation(distance);
+  let statusD = distanceLocation(distance);
   var elevator = new google.maps.ElevationService;
-  displayLocationElevation(elevator);
+  let statusE = displayLocationElevation(elevator);
+
+  setTimeout(accordPopulate, 500);
 }
 
 // creates the markers
@@ -126,6 +128,7 @@ function createMarker(place) {
 
 //calculate distance
 function distanceLocation(distance) {
+  let statusD = false;
   for (let i = 0; i < searchResults.length; i++) {
     distance.getDistanceMatrix({
       origins: [pos],
@@ -134,22 +137,25 @@ function distanceLocation(distance) {
       unitSystem: google.maps.UnitSystem.IMPERIAL,
     }, function(results, err){
       searchResults[i].distance =  results.rows[0].elements[0].distance.text;
+      statusD = true;
     })
   }
+  return statusD;
 }
 
 // calculate elevation
 function displayLocationElevation(elevator) {
+  let statusE = false;
   for (let i = 0; i < searchResults.length; i++) {
     elevator.getElevationForLocations({
       locations: [des[i]],
     }, function(response, err){
       searchResults[i].elevation =  Math.floor(response[0].elevation*3.28);
       searchResults[i].elevationcomp =  Math.abs(searchResults[i].elevation - elevPos);
+      statusE = true;
     });
   }
   console.log(searchResults);
-  accordPopulate();
 }
 
 // this functions tell you if you are allowed the GPS to be accessed.

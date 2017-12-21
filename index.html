@@ -13,11 +13,13 @@
   <title>Elevation Info</title>
 
 <script id="results-template" type="text/x-handlebars-template">
-  <button class="accordion">{{name}}</button>
+  <button class="accordion"><h1>{{name}}</h1>
+  <label>Distance to location: {{distance}}</button>
   <div class="panel">
-    <div>Distance: {{distance}}</div>
-    <div>Elevation: {{elevation}}</div>
-    <div>Rating: {{rating}}</div>
+    <div><img class="search-img" src="{{imgUrl}}"></div>
+    <div><h2>- {{address}}</h2></div>
+    <div><h2>- The elevation difference is: {{elevationcomp}} feet</h2></div>
+    <div class="last-div"><h2>- Rating: {{rating}}</h2></div>
   </div>
 </script>
 
@@ -39,12 +41,14 @@
 
   <main class="main">
     <h5>Hey! This is Eazy Walk here you can search for anything from a coffee shop to a small business to find the most efficient route</h5>
-    <form>
+    <form id="search-from">
       <p id="google-search">Your Search</p>
       <input id="search" placeholder="Type here">
       <button onclick="initMap(event)"></button>
     </form>
+
     <div class="search-details"></div>
+
   </main>
 
   <!-- this is adding the books to the page -->
