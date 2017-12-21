@@ -10,6 +10,7 @@
   <link rel="stylesheet" type="text/css" href=styles/base.css>
   <link rel="stylesheet" type="text/css" href="styles/layout.css">
   <link rel="stylesheet" type="text/css" href="styles/module.css">
+  <link rel="stylesheet" type="text/css" href="styles/icons/style.css"
   <title>Elevation Info</title>
 
 <script id="results-template" type="text/x-handlebars-template">
@@ -17,9 +18,9 @@
   <label>Distance to location: {{distance}}</button>
   <div class="panel">
     <div><img class="search-img" src="{{imgUrl}}"></div>
-    <div><h2>- {{address}}</h2></div>
-    <div><h2>- The elevation difference is: {{elevationcomp}} feet</h2></div>
-    <div class="last-div"><h2>- Rating: {{rating}}</h2></div>
+    <div class="icon-office"><h2>- {{address}}</h2></div>
+    <div class="icon-arrow-up-right2"><h2>- The elevation difference is: {{elevationcomp}} feet</h2></div>
+    <div class="last-div icon-bullhorn"><h2>- Rating: {{rating}}</h2></div>
   </div>
 </script>
 
