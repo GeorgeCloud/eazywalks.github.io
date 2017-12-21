@@ -10,9 +10,10 @@ let elevPos = {};
 
 let searchResults = [];
 
-function SearchResultsObject(name, add, dis, ele, rating, elecomp, imgUrl,ed) {
+function SearchResultsObject(name, add, openh, dis, ele, rating, elecomp, imgUrl,ed) {
   this.name = name;
   this.address = add;
+  this.openhrs = openh
   this.distance = dis;
   this.elevation = ele;
   this.rating = rating;
@@ -85,14 +86,11 @@ function processResults(results, status) {
         lat: results[i].geometry.location.lat(),
         lng: results[i].geometry.location.lng()
       })
-      searchResults.push(new SearchResultsObject(results[i].name, results[i].vicinity, 0, 0, results[i].rating,0,0));
-      if (!results[i].photos) {
-        searchResults[i].imgUrl = 'http://via.placeholder.com/350x150';
-      } else {
-        searchResults[i].imgUrl = results[i].photos[0].getUrl({maxWidth: 1000});
+      searchResults.push(new SearchResultsObject(results[i].name, results[i].vicinity, null, 0, 0, results[i].rating,0));
+      searchResults[i].imgUrl = (results[i].photos) ? results[i].photos[0].getUrl({maxWidth: 1000}) : 'http://via.placeholder.com/350x150';
+      searchResults[i].openhrs = (results[i].opening_hours) ? results[i].opening_hours : "Not Available";
       }
-    }
-    // console.log(results);
+     console.log(results);
   }
   let distance = new google.maps.DistanceMatrixService;
   let statusD = distanceLocation(distance);

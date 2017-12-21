@@ -1,12 +1,14 @@
 function mapCreate(){
+    //co-ordinates of Seattle 
     map = new google.maps.Map(document.getElementById('map'), {
         center: {
-            lat: 47.6182,
-            lng: -122.3519
+            lat: 47.6062,
+            lng: -122.3321
         },
         zoom: 16,
         disableDefaultUI: true,
-
+        draggable: false,
+        
         styles: [
             {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
             {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
@@ -88,6 +90,6 @@ function mapCreate(){
             }
           ]
         });
-        
+
   infoWindow = new google.maps.InfoWindow();
 }
